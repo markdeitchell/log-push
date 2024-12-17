@@ -3,7 +3,8 @@ const app = express()
 const port = 3000
 
 app.post('/log-push', (req, res) => {
-  console.log(req)
+  const payload = req.body
+  console.log(payload)
   res.status(200).send('done')
 })
 
