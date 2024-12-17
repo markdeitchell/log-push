@@ -9,15 +9,16 @@ const certificate = fs.readFileSync('ssl/crt.crt', 'utf8')
 const credentials = {key: privateKey, cert: certificate}
 const app = express()
 const port = 3000
-var httpsServer = https.createServer(credentials, app)
 
 const jsonParser = bodyParser.json()
 
-httpsServer.post('/log-push', jsonParser, (req, res) => {
+app.post('/log-push', jsonParser, (req, res) => {
   const payload = req.body
   console.log(payload)
   res.status(200).send('done')
 })
+
+const httpsServer = https.createServer(credentials, app)
 
 httpsServer.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
